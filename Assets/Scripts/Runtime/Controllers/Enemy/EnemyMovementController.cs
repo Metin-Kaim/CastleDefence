@@ -20,24 +20,24 @@ namespace Runtime.Controllers.Enemy
             TargetDesignator();
         }
 
-        private void Update()
-        {
-            // Anlýk konum takibi
-            // Hedef deðiþimi
-            if (Vector2.Distance(new(transform.position.x, transform.position.z), new(_currentTarget.position.x, _currentTarget.position.z)) < .2f)
-            {
-                if (list_pathPoints.Count <= 0)
-                {
-                    Destroy(gameObject);
-                }
-                else
-                {
-                    transform.rotation = Quaternion.Euler(_currentTarget.eulerAngles);
-                    //transform.DORotate(_currentTarget.transform.eulerAngles, .2f);
-                    TargetDesignator();
-                }
-            }
-        }
+        //private void Update()
+        //{
+        //    // Anlýk konum takibi
+        //    // Hedef deðiþimi
+        //    if (Vector2.Distance(new(transform.position.x, transform.position.z), new(_currentTarget.position.x, _currentTarget.position.z)) < .2f)
+        //    {
+        //        if (list_pathPoints.Count <= 0)
+        //        {
+        //            Destroy(gameObject);
+        //        }
+        //        else
+        //        {
+        //            transform.rotation = Quaternion.Euler(_currentTarget.eulerAngles);
+        //            //transform.DORotate(_currentTarget.transform.eulerAngles, .2f);
+        //            TargetDesignator();
+        //        }
+        //    }
+        //}
 
         private void FixedUpdate()
         {
@@ -51,6 +51,22 @@ namespace Runtime.Controllers.Enemy
             {
                 Debug.LogWarning("DeadZone");
                 Destroy(gameObject);
+            }
+        }
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("PathPoint"))
+            {
+                if (list_pathPoints.Count <= 0)
+                {
+                    Destroy(gameObject);
+                }
+                else
+                {
+                    //transform.rotation = Quaternion.Euler(_currentTarget.eulerAngles);
+                    transform.DORotate(_currentTarget.transform.eulerAngles, .5f);
+                    TargetDesignator();
+                }
             }
         }
 

@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,13 +9,16 @@ namespace Runtime.Controllers.Enemy
         [SerializeField] GameObject enemyPrefab;
         [SerializeField] Transform spawnPoint;
         [SerializeField] List<Transform> pathPoints = new();
+        int counter = 0;
 
-        private void Update()
+        private IEnumerator Start()
         {
-            if(Input.GetMouseButtonDown(0))
+            while (true)
             {
-                GameObject newEnemy = Instantiate(enemyPrefab,spawnPoint.position,Quaternion.identity,transform);
+                counter++;
+                GameObject newEnemy = Instantiate(enemyPrefab, spawnPoint.position, Quaternion.identity, transform);
                 newEnemy.GetComponent<EnemyMovementController>().list_pathPoints.AddRange(pathPoints);
+                yield return new WaitForSeconds(.1f);
             }
         }
     }
