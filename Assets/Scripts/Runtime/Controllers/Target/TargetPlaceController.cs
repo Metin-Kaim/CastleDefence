@@ -5,16 +5,34 @@ namespace Runtime.Controllers.Target
     public class TargetPlaceController : MonoBehaviour
     {
         [SerializeField] LayerMask groundLayer;
+        [SerializeField] Transform turretPrefab;
 
+        Transform currentTurret;
         Ray ray;
         RaycastHit hit;
-
+        int counter;
         void Update()
         {
-            ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayer))
+            if (currentTurret != null)
             {
-                //pos = hit.point;
+                ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                if (Physics.Raycast(ray, out hit, Mathf.Infinity, groundLayer))
+                {
+                    currentTurret.transform.position = hit.point;
+                }
+            }
+            if (Input.GetMouseButtonDown(0))
+            {
+                if (counter == 0)
+                {
+                    currentTurret = Instantiate(turretPrefab, hit.point, Quaternion.identity, transform);
+                    counter++;
+                }
+                else
+                {
+                    currentTurret = null;
+                    counter--;
+                }
             }
         }
     }
