@@ -4,14 +4,18 @@ using UnityEngine;
 
 namespace Runtime.Controllers.Enemy
 {
-    public class EnemyMovement : MonoBehaviour
+    public class EnemyMovementController : MonoBehaviour
     {
-        [SerializeField] List<Transform> pathPoints = new();
+        public List<Transform> list_pathPoints = new();
+
+
         [SerializeField][Range(1, 50)] float moveSpeed;
+
 
         private Transform _currentTarget;
 
-        private void Awake()
+
+        private void Start()
         {
             TargetDesignator();
         }
@@ -20,20 +24,16 @@ namespace Runtime.Controllers.Enemy
         {
             // Anlýk konum takibi
             // Hedef deðiþimi
-            float distance = Vector2.Distance(new(transform.position.x, transform.position.z), new(_currentTarget.position.x, _currentTarget.position.z));
-            print($"Distance: {distance}");
-            if (distance < .5f)
+            if (Vector2.Distance(new(transform.position.x, transform.position.z), new(_currentTarget.position.x, _currentTarget.position.z)) < .2f)
             {
-                if (pathPoints.Count <= 0)
+                if (list_pathPoints.Count <= 0)
                 {
-                    print("Hedef Yok Edildi");
                     Destroy(gameObject);
-                    //return;
                 }
                 else
                 {
-                    print($"Düþman {_currentTarget.name}'e ulaþtý.");
-                    transform.DORotate(_currentTarget.transform.eulerAngles, .2f);
+                    transform.rotation = Quaternion.Euler(_currentTarget.eulerAngles);
+                    //transform.DORotate(_currentTarget.transform.eulerAngles, .2f);
                     TargetDesignator();
                 }
             }
@@ -44,12 +44,21 @@ namespace Runtime.Controllers.Enemy
             // Hedefe ilerleme
             transform.position += moveSpeed * Time.fixedDeltaTime * transform.forward;
         }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.CompareTag("DeadZone"))
+            {
+                Debug.LogWarning("DeadZone");
+                Destroy(gameObject);
+            }
+        }
+
         private void TargetDesignator()
         {
             //Hedef Belirleme Fonksiyon
-            _currentTarget = pathPoints[0];
-            print($"Yeni hedef:: ${_currentTarget.name}");
-            pathPoints.RemoveAt(0);
+            _currentTarget = list_pathPoints[0];
+            list_pathPoints.RemoveAt(0);
         }
     }
 }
