@@ -8,51 +8,28 @@ namespace Runtime.Controllers.Enemy
     {
         public List<Transform> list_pathPoints = new();
 
-
         [SerializeField][Range(1, 50)] float moveSpeed;
 
-
         private Transform _currentTarget;
-
 
         private void Start()
         {
             TargetDesignator();
         }
 
-        //private void Update()
-        //{
-        //    // Anlýk konum takibi
-        //    // Hedef deðiþimi
-        //    if (Vector2.Distance(new(transform.position.x, transform.position.z), new(_currentTarget.position.x, _currentTarget.position.z)) < .2f)
-        //    {
-        //        if (list_pathPoints.Count <= 0)
-        //        {
-        //            Destroy(gameObject);
-        //        }
-        //        else
-        //        {
-        //            transform.rotation = Quaternion.Euler(_currentTarget.eulerAngles);
-        //            //transform.DORotate(_currentTarget.transform.eulerAngles, .2f);
-        //            TargetDesignator();
-        //        }
-        //    }
-        //}
-
         private void FixedUpdate()
         {
-            // Hedefe ilerleme
-            transform.position += moveSpeed * Time.fixedDeltaTime * transform.forward;
+            MoveTowardsTarget();
         }
 
         private void OnTriggerExit(Collider other)
         {
             if (other.CompareTag("DeadZone"))
             {
-                Debug.LogWarning("DeadZone");
                 Destroy(gameObject);
             }
         }
+
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("PathPoint"))
@@ -63,16 +40,19 @@ namespace Runtime.Controllers.Enemy
                 }
                 else
                 {
-                    //transform.rotation = Quaternion.Euler(_currentTarget.eulerAngles);
                     transform.DORotate(_currentTarget.transform.eulerAngles, .5f);
                     TargetDesignator();
                 }
             }
         }
 
+        private void MoveTowardsTarget()
+        {
+            transform.position += moveSpeed * Time.fixedDeltaTime * transform.forward;
+        }
+
         private void TargetDesignator()
         {
-            //Hedef Belirleme Fonksiyon
             _currentTarget = list_pathPoints[0];
             list_pathPoints.RemoveAt(0);
         }
