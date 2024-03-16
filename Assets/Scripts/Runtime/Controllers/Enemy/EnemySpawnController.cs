@@ -18,7 +18,7 @@ namespace Runtime.Controllers.Enemy
                 counter++;
                 GameObject newEnemy = Instantiate(enemyPrefab, spawnPoint.position, Quaternion.identity, transform);
                 newEnemy.GetComponent<EnemyMovementController>().list_pathPoints.AddRange(pathPoints);
-                yield return new WaitForSeconds(.1f);
+                yield return new WaitForSeconds(.5f);
             }
         }
     }
