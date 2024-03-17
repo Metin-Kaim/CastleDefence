@@ -1,3 +1,4 @@
+using Runtime.Signals;
 using UnityEngine;
 
 namespace Runtime.Controllers.Target
@@ -11,6 +12,7 @@ namespace Runtime.Controllers.Target
         Ray ray;
         RaycastHit hit;
         int counter;
+
         void Update()
         {
             if (currentTurret != null)
@@ -21,18 +23,38 @@ namespace Runtime.Controllers.Target
                     currentTurret.transform.position = hit.point;
                 }
             }
-            if (Input.GetMouseButtonDown(0))
+        }
+
+        private void OnEnable()
+        {
+            SubscribeEvents();
+        }
+
+        private void SubscribeEvents()
+        {
+            InputSignals.Instance.onLeftMousePress += PlaceTarget;
+        }
+        private void UnsubscribeEvents()
+        {
+            InputSignals.Instance.onLeftMousePress -= PlaceTarget;
+        }
+
+        private void OnDisable()
+        {
+            UnsubscribeEvents();
+        }
+
+        private void PlaceTarget()
+        {
+            if (counter == 0)
             {
-                if (counter == 0)
-                {
-                    currentTurret = Instantiate(turretPrefab, hit.point, Quaternion.identity, transform);
-                    counter++;
-                }
-                else
-                {
-                    currentTurret = null;
-                    counter--;
-                }
+                currentTurret = Instantiate(turretPrefab, hit.point, Quaternion.identity, transform);
+                counter++;
+            }
+            else
+            {
+                currentTurret = null;
+                counter--;
             }
         }
     }
