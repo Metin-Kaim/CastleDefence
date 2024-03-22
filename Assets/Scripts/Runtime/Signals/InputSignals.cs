@@ -8,7 +8,7 @@ namespace Runtime.Signals
         public static InputSignals Instance;
 
         public UnityAction onLeftMousePress = delegate { };
-        public UnityAction onTouchRelease = delegate { };
+        public UnityAction onLeftMouseRelease = delegate { };
 
         private void Awake()
         {

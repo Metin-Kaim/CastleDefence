@@ -13,7 +13,7 @@ namespace Runtime.Managers.Inputs
             }
             if(Input.GetMouseButtonUp(0))
             {
-                InputSignals.Instance.onTouchRelease?.Invoke();
+                InputSignals.Instance.onLeftMouseRelease?.Invoke();
             }
         }
     }

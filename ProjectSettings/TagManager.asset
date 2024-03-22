@@ -8,6 +8,7 @@ TagManager:
   - PathPoint
   - Obstacle
   - Turret
+  - Ground
   layers:
   - Default
   - TransparentFX
