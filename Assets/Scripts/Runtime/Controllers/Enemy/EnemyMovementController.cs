@@ -46,7 +46,7 @@ namespace Runtime.Controllers.Enemy
                 }
                 else
                 {
-                    transform.DORotate(_currentTarget.transform.eulerAngles, .5f);
+                    transform.DORotate(_currentTarget.transform.eulerAngles, 1 / moveSpeed);
                     TargetDesignator();
                 }
             }

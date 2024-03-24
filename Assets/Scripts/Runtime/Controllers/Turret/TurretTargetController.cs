@@ -25,6 +25,7 @@ public class TurretTargetController : MonoBehaviour
         if (other.TryGetComponent(out AbsEnemy enemy))
         {
             _enemiesInRange.Remove(enemy); // Düþmaný algýlananlar listesinden çýkar
+            turretHandler.currentTarget = null;
             UpdateTarget(); // Hedefi güncelle
         }
     }
