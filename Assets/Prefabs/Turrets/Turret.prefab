@@ -264,7 +264,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22597931298e31b468aad516ad996324, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meshRenderer: {fileID: 1507003392334524980}
+  currentTarget: {fileID: 0}
+  _rangeMeshRenderer: {fileID: 1507003392334524980}
+  _sphereCollider: {fileID: 6912054154691317743}
+  _turretBody: {fileID: 256001797659866108}
+  _bulletHole: {fileID: 3680639311578227597}
+--- !u!1 &5771676059773617734
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3680639311578227597}
+  m_Layer: 0
+  m_Name: BulletHole
+  m_TagString: Untagged
+  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3680639311578227597
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5771676059773617734}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.955, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6812062742493724041}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6103504652349756949
 GameObject:
   m_ObjectHideFlags: 0
@@ -276,10 +311,11 @@ GameObject:
   - component: {fileID: 4608933808420257125}
   - component: {fileID: 6369467445649273090}
   - component: {fileID: 1507003392334524980}
-  - component: {fileID: 3230461303129103625}
-  m_Layer: 0
+  - component: {fileID: 3883992316342993686}
+  - component: {fileID: 6912054154691317743}
+  m_Layer: 2
   m_Name: Range
-  m_TagString: Untagged
+  m_TagString: TurretRange
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -349,8 +385,21 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &3230461303129103625
-CapsuleCollider:
+--- !u!114 &3883992316342993686
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6103504652349756949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b83a4eabda7dd0943a287c615d41ac77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  turretHandler: {fileID: -1148771449062133386}
+--- !u!135 &6912054154691317743
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -367,11 +416,9 @@ CapsuleCollider:
   m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 0
-  serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0.00000005960464, y: 0, z: -0.00000008940696}
 --- !u!1 &9135214703225627943
 GameObject:
   m_ObjectHideFlags: 0
@@ -402,7 +449,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 1.0200001, z: 0.37899995}
   m_LocalScale: {x: 0.57238686, y: 0.57238686, z: 1.0950282}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 3680639311578227597}
   m_Father: {fileID: 256001797659866108}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!33 &4208185746570918293

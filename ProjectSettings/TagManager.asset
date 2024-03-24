@@ -9,6 +9,7 @@ TagManager:
   - Obstacle
   - Turret
   - Ground
+  - TurretRange
   layers:
   - Default
   - TransparentFX

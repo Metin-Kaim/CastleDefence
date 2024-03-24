@@ -1,9 +1,7 @@
-﻿using Runtime.Signals;
-using System;
+﻿using System;
 using UnityEngine;
-using UnityEngine.Events;
 
-namespace Runtime.Runtime.Signals
+namespace Runtime.Signals
 {
     public class UISignals : MonoBehaviour
     {

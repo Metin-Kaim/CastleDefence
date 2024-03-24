@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Runtime.Abstract.Enemies;
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -8,7 +9,7 @@ namespace Runtime.Signals
     {
         public static TurretSignals Instance;
 
-        public System.Func<int> onGetCurrentTurretIndex;
+        public Func<int> onGetCurrentTurretIndex;
         public UnityAction onTurretPlaced;
         public Func<bool> onGetIsTurretButtonClicked;
 

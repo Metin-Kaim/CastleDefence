@@ -1,4 +1,5 @@
 using DG.Tweening;
+using Runtime.Handlers.Enemies;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,11 +7,16 @@ namespace Runtime.Controllers.Enemy
 {
     public class EnemyMovementController : MonoBehaviour
     {
-        public List<Transform> list_pathPoints = new();
 
         [SerializeField][Range(1, 50)] float moveSpeed;
 
+        private List<Transform> _list_pathPoints;
         private Transform _currentTarget;
+
+        private void Awake()
+        {
+            _list_pathPoints = GetComponent<EnemyHandler>().List_pathPoints;
+        }
 
         private void Start()
         {
@@ -34,7 +40,7 @@ namespace Runtime.Controllers.Enemy
         {
             if (other.CompareTag("PathPoint"))
             {
-                if (list_pathPoints.Count <= 0)
+                if (_list_pathPoints.Count <= 0)
                 {
                     Destroy(gameObject);
                 }
@@ -53,8 +59,9 @@ namespace Runtime.Controllers.Enemy
 
         private void TargetDesignator()
         {
-            _currentTarget = list_pathPoints[0];
-            list_pathPoints.RemoveAt(0);
+            _currentTarget = _list_pathPoints[0];
+            _list_pathPoints.RemoveAt(0);
         }
+
     }
 }
